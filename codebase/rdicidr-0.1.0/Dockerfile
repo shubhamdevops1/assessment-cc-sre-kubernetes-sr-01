@@ -1,21 +1,12 @@
 FROM node:15 as builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci 
+COPY . .
+RUN npm run build
 
-WORKDIR
 
-COPY
-
-RUN 
-
-COPY
-
-RUN 
-
-FROM
-
-WORKDIR
-
-COPY
-
-RUN 
-
-ENTRYPOINT 
+FROM nginx:alpine
+COPY --from=builder /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
