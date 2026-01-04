@@ -1,21 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: nginx-react
   labels:
-    app: nginx
+    apps: nginx
 spec:
   replicas: 3
-  selector:
+  selector: 
     matchLabels:
-      app: nginx
+      apps: nginx
   template:
     metadata:
       labels:
-        app: nginx
+        apps: nginx
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.14.2
+      - name: nginx-react
+        image: asia-south1-docker.pkg.dev/awesomeproject-77b88/nginx-react/sre-nginx-test:1
         ports:
         - containerPort: 80
+        resources:
+          requests: 
+            cpu: 150m
+            memory: 250Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi

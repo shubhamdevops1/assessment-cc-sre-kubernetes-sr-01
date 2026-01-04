@@ -1,16 +1,13 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: v1
+kind: Service
 metadata:
-  name: ingress-wildcard-host
+  name: nginx-react
+  namespace: default
 spec:
-  rules:
-  - host: "foo.bar.com"
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/bar"
-        backend:
-          service:
-            name: service1
-            port:
-              number: 80
+  type: LoadBalancer
+  selector:
+    apps: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
